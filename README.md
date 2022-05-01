@@ -49,3 +49,7 @@ Project Reactor implements the above four interface
 * Part of reactive-core module
 * Flux represents 0 to N elements
 * Mono represents 0 to 1 elements
+
+````text
+data --> operator --> result data
+````
