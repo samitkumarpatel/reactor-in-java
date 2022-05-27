@@ -4,7 +4,7 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 
-public class FluxAndMonoBasic {
+public class ReactiveBasic {
     public static void main(String[] args) {
 
         //Simple ways to create a Flux or Mono and subscribe to it
