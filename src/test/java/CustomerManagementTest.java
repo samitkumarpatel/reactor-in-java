@@ -2,18 +2,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerManagementTest {
     CustomerService customerService = new CustomerService();
@@ -41,6 +38,17 @@ public class CustomerManagementTest {
                     () -> assertEquals("Customer Two", customer.name, "name should match")
             );
         }).verifyComplete();
+    }
+
+    //TODO fix me
+    @Test
+    @DisplayName("customerNotFound Test")
+    void customerNotFound() {
+        Mono<Customer> customerMono = customerService.getById(12l);
+
+        StepVerifier.create(customerMono).consumeErrorWith(e -> {
+
+        }).verify();
     }
 }
 
@@ -87,7 +95,7 @@ class CustomerService {
         return allCustomer
                 .map(customer -> customer)
                 .filter(customer -> customer.id == id)
-                .singleOrEmpty()
+                .single()
                 .switchIfEmpty(Mono.error(new CustomerNotFound("not found")));
     }
 }
